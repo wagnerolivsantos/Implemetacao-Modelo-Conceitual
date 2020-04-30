@@ -1,4 +1,4 @@
-package com.mskadven123.cursomc;
+package com.wagneroliv.cursomc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
