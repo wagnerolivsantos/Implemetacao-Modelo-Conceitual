@@ -1,4 +1,4 @@
-package com.mskadven123.cursomc;
+package com.wagneroliv.cursomc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
