@@ -7,18 +7,19 @@ import org.springframework.stereotype.Service;
 
 import com.wagneroliv.cursomc.domain.Categoria;
 import com.wagneroliv.cursomc.repositories.CategoriaRepository;
+import com.wagneroliv.cursomc.services.exception.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
-	
-	@Autowired //mecanismo para instanciar automáticamente 'repo'
+
+	@Autowired
 	private CategoriaRepository repo;
-	
+
 	public Categoria buscar(Integer id) {
-		// Buscando BD um id, na Categoria, e retorna um Objeto
+
 		Optional<Categoria> obj = repo.findById(id);
-		
-		//Retorna obj. Caso não tenha valor, retorna NULL.
-		return obj.orElse(null);
+
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 }
