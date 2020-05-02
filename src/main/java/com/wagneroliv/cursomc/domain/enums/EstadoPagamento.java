@@ -1,4 +1,4 @@
-package com.wagneroliv.cursomc.domain;
+package com.wagneroliv.cursomc.domain.enums;
 
 public enum EstadoPagamento {
 
