@@ -32,7 +32,7 @@ import com.wagneroliv.cursomc.repositories.PedidoRepository;
 import com.wagneroliv.cursomc.repositories.ProdutoRepository;
 
 @SpringBootApplication
-public class CursomcApplication implements CommandLineRunner {
+public class Application implements CommandLineRunner {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
@@ -54,7 +54,7 @@ public class CursomcApplication implements CommandLineRunner {
 	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
-		SpringApplication.run(CursomcApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 	@Override
@@ -76,13 +76,13 @@ public class CursomcApplication implements CommandLineRunner {
 		Cidade c2 = new Cidade(null, "São Paulo", est2);
 		Cidade c3 = new Cidade(null, "Campinas", est2);
 
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@silva.com", "123456789", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@silva.com", "36378912377", TipoCliente.PESSOAFISICA);
 
-		Endereco e1 = new Endereco(null, "Rua Flores", "300", "apto 303", "Jardim", "38220834", cli1, c1);
-		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "sala 800", "Centro", "369248157", cli1, c2);
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "sala 800", "Centro", "38777012", cli1, c2);
 
-		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:30"), cli1, e1);
-		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2018 09:45"), cli1, e2);
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
 
 		Pagamento pgto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 5);
 		Pagamento pgto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"),
@@ -95,38 +95,29 @@ public class CursomcApplication implements CommandLineRunner {
 		ped1.setPagamento(pgto1);
 		ped2.setPagamento(pgto2);
 
-		// Associacao Categoria com Produto
 		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
 		cat2.getProdutos().addAll(Arrays.asList(p2));
 
-		// Associacao Produto com Categoria
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 
-		// Associacao Estado com Cidade
 		est1.getCidades().addAll(Arrays.asList(c1));
 		est2.getCidades().addAll(Arrays.asList(c2, c3));
 
-		// Adicionando Telefone ao Cliente
-		cli1.getTelefones().addAll(Arrays.asList("321654987", "147258369"));
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 
-		// Associacao Cliente ao Endereco
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
 
-		// Associacao Cliente ao Pedido
 		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 
-		// Associacao Pedido para Item
 		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
 		ped2.getItens().addAll(Arrays.asList(ip3));
 
-		// Associacao Pedido para Item
 		p1.getItens().addAll(Arrays.asList(ip1));
 		p2.getItens().addAll(Arrays.asList(ip3));
 		p3.getItens().addAll(Arrays.asList(ip2));
 
-		// Salvando dados nas Tabelas
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
